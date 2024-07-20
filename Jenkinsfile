@@ -4,6 +4,12 @@ pipeline {
         NVD_API_KEY = credentials('nvd-api-key')
     }
 	stages {
+	    stage('Clean DependencyCheck Data') {
+            steps {
+                sh 'rm -rf /var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/owasp/data/*'
+            }
+        }
+        
 		stage('Checkout SCM') {
 			steps {
 				git url: 'https://github.com/ElizabethLanyl/JenkinsDependencyCheckTest.git', branch: 'master', credentialsId: 'jenkins-PAT'
